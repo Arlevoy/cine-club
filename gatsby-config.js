@@ -8,6 +8,12 @@ module.exports = {
     `gatsby-plugin-react-helmet`,
     `gatsby-plugin-antd`,
     {
+      resolve: `gatsby-plugin-typescript`,
+      options: {
+        resolveJsonModule: true,
+      },
+    },
+    {
       resolve: `gatsby-source-filesystem`,
       options: {
         name: `images`,
