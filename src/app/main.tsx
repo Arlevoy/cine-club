@@ -84,6 +84,9 @@ export const Main = (props: MainProps) => {
   const [randomInterval, setRandomInterval] = useState(null)
 
   useEffect(() => {
+    fetch("/.netlify/functions/getTheme").then(response => {
+      return response.json()
+    })
     netlifyIdentity.init()
   })
 
