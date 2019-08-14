@@ -8,7 +8,6 @@ import { PrivateRoute } from "./components/PrivateRoute"
 // remember everything in /app/* is dynamic now!
 const App = () => {
   useEffect(() => initAuth())
-  console.log("coucou")
   return (
     <Router>
       <PublicRoute path="/app">
