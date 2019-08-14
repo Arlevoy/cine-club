@@ -1,4 +1,4 @@
-import React, { useState, Fragment } from "react"
+import React, { useState, Fragment, useEffect } from "react"
 import { Link } from "gatsby"
 import { Button, Layout } from "antd"
 
@@ -48,7 +48,9 @@ const styles = {
     width: "auto",
     height: "auto",
     padding: 24,
-    fontSize: 40,
+    fontSize: 30,
+    position: "absolute",
+    bottom: 100,
   },
   content: {
     display: "flex",
@@ -63,7 +65,7 @@ const styles = {
     fontFamily: "Didact Gothic",
     color: "white",
     fontSize: 52,
-    marginBottom: 24,
+    marginBottom: 48,
   },
 }
 
@@ -78,6 +80,12 @@ const IndexPage = () => {
   const [theme, setTheme] = useState("")
   const [isChoosing, setIsChoosing] = useState(false)
   const [randomInterval, setRandomInterval] = useState(null)
+
+  useEffect(() => {
+    fetch("/.netlify/functions/hello")
+      .then(response => response.json())
+      .then(data => console.log(data))
+  })
 
   const onClick = () => {
     setIsChoosing(isChoosing => !isChoosing)
