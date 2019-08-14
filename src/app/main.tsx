@@ -53,8 +53,6 @@ const styles = {
     height: "auto",
     padding: 24,
     fontSize: 30,
-    position: "absolute",
-    bottom: 100,
   },
   content: {
     display: "flex",
@@ -98,7 +96,6 @@ export const Main = (props: MainProps) => {
     return isChoosing && clearInterval(randomInterval)
   }
   const user = netlifyIdentity.currentUser()
-  console.log(user)
   return (
     <Layout>
       <div style={styles.header}>Bienvenue au Ciné-Club de la Rue de Tracy</div>

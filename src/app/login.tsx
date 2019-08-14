@@ -5,7 +5,7 @@ import { navigate } from "@reach/router"
 import { Layout } from "../components/layout"
 
 export const Login = () => {
-  const onClick = () => handleLogin(() => navigate("/"))
+  const onClick = () => handleLogin(() => navigate("/app"))
   return (
     <Layout>
       <div>Login</div>
