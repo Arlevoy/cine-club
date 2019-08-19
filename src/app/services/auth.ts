@@ -31,6 +31,8 @@ export const handleLogin = callback => {
 export const isLoggedIn = () => {
   if (!isBrowser()) return false
   const user = netlifyIdentity.currentUser()
+  console.log("user", user)
+  return true
   return !!user
 }
 

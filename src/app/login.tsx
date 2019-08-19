@@ -1,15 +1,29 @@
 import React from "react"
-import { Button } from "antd"
+import { Typography } from "antd"
 import { handleLogin } from "./services/auth"
 import { navigate } from "@reach/router"
-import { Layout } from "../components/layout"
+import { Layout, Header, Content } from "../components/Layout"
+import { DesignedButton } from "../components/button"
+
+const styles = {
+  title: {
+    color: "white",
+  },
+  button: {},
+}
 
 export const Login = () => {
   const onClick = () => handleLogin(() => navigate("/app"))
   return (
-    <Layout>
-      <div>Login</div>
-      <Button onClick={onClick}>Login</Button>
+    <Layout hasNavbar={false}>
+      <Header>
+        <Typography style={styles.title}>
+          🥺 Vous devez être connecté.e pour accèder au contenu
+        </Typography>
+      </Header>
+      <Content>
+        <DesignedButton label="Se connecter" onClick={onClick} />
+      </Content>
     </Layout>
   )
 }
