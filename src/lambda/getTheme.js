@@ -2,9 +2,9 @@ const faunadb = require("faunadb") /* Import faunaDB sdk */
 
 /* configure faunaDB Client with our secret */
 const q = faunadb.query
-console.log("process.env", process.env.FAUNADB_SECRET)
+console.log("process.env", process.env.FAUNADB_CINEVIM_SECRET)
 const client = new faunadb.Client({
-  secret: process.env.FAUNADB_SECRET,
+  secret: process.env.FAUNADB_CINEVIM_SECRET,
 })
 
 console.log("client", client)
@@ -15,7 +15,7 @@ exports.handler = (event, context, callback) => {
 
   /* construct the fauna query */
   return client
-    .query(q.Get(q.Index("indexes/all_themes")))
+    .query(q.Paginate(q.Match(q.Index("all_movies"))))
     .then(response => {
       console.log("success", response)
       /* Success! return the response with statusCode 200 */

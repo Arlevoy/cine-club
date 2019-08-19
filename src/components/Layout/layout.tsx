@@ -5,6 +5,8 @@ import {
   PositionProperty,
   FlexDirectionProperty,
 } from "csstype"
+import { Menu } from "antd"
+import { Navbar } from "../navbar"
 
 const styles = {
   backgroundImage: {
@@ -20,17 +22,12 @@ const styles = {
     backgroundImage: `url(
       "https://images.unsplash.com/photo-1458053688450-eef5d21d43b3?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1652&q=80)`,
   },
-  container: {
-    height: "100vh",
-    display: "flex",
-    flexDirection: "column" as FlexDirectionProperty,
-    alignItems: "center",
-  },
 }
-export const Layout = ({ children }) => {
+export const Layout = ({ children, hasNavbar = true, ...props }) => {
   return (
     <Fragment>
-      <div style={styles.container}>{children}</div>
+      {hasNavbar && <Navbar {...props} />}
+      <div>{children}</div>
       <div style={styles.backgroundImage} />
     </Fragment>
   )
