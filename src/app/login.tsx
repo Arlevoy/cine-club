@@ -2,7 +2,7 @@ import React from "react"
 import { Typography } from "antd"
 import { handleLogin } from "./services/auth"
 import { navigate } from "@reach/router"
-import { Layout, Header, Content } from "../components/Layout"
+import { Layout, Header, Content } from "../components/AppLayout"
 import { DesignedButton } from "../components/button"
 
 const styles = {

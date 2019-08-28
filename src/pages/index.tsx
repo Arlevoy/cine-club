@@ -2,7 +2,8 @@ import React from "react"
 import { Router } from "@reach/router"
 import App from "./app"
 import { Link } from "gatsby"
-import { Layout, Content } from "../components/layout"
+import { Layout } from "../components/AppLayout/layout"
+import { Content } from "../components/AppLayout/content"
 import { DesignedButton } from "../components/button"
 
 // remember everything in /app/* is dynamic now!

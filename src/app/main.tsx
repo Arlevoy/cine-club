@@ -1,7 +1,7 @@
 import React, { useState, Fragment, useEffect } from "react"
 import { Button, Menu } from "antd"
 import netlifyIdentity from "netlify-identity-widget"
-import { Layout, Header, Content } from "../components/Layout"
+import { Layout, Header, Content } from "../components/AppLayout"
 import { DesignedButton } from "../components/button"
 
 import themes from "../data/theme.json"

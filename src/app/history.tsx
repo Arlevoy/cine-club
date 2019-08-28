@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from "react"
-import { Layout, Content } from "../components/Layout"
-import fakeHistory from "./fakeHistory.json"
-import { Card, Divider, Form, Spin } from "antd"
-import Text from "antd/lib/typography/Text"
+import { Layout, Content } from "../components/AppLayout"
+import { Card, Divider, Spin } from "antd"
 
 interface PropsType {}
 
