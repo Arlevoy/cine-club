@@ -17,18 +17,22 @@ const styles = {
     top: 0,
     filter: "blur(3px)",
     left: 0,
+    backgroundColor: 'black',
     backgroundSize: "cover",
     backgroundPosition: "bottom center",
     backgroundImage: `url(
       "https://images.unsplash.com/photo-1458053688450-eef5d21d43b3?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1652&q=80)`,
   },
+  background: {
+    backgroundColor: 'black'
+  },
 }
 export const Layout = ({ children, hasNavbar = true, ...props }) => {
   return (
-    <Fragment>
+    <div style={styles.background}>
       {hasNavbar && <Navbar {...props} />}
-      <div>{children}</div>
+      {children}
       <div style={styles.backgroundImage} />
-    </Fragment>
+    </div>
   )
 }

@@ -1,5 +1,4 @@
 var proxy = require("http-proxy-middleware")
-
 require("dotenv").config({
   path: `.env.${process.env.NODE_ENV}`,
 })
@@ -22,6 +21,12 @@ module.exports = {
     author: `@gatsbyjs`,
   },
   plugins: [
+    {
+      resolve: `gatsby-plugin-env-variables`,
+      options: {
+        whitelist: ["FAUNADB_CINEDIM_SECRET"],
+      },
+    },
     {
       resolve: `gatsby-plugin-create-client-paths`,
       options: { prefixes: [`/app/*`] },

@@ -24,6 +24,9 @@ const styles = {
     fontSize: 40,
     marginBottom: 48,
   },
+  mainContainer: {
+    alignItems: "center",
+  },
 }
 
 const renderThemes = (themes: string[]) => {
@@ -37,11 +40,7 @@ export const Main = (props: MainProps) => {
   const [theme, setTheme] = useState("")
   const [isChoosing, setIsChoosing] = useState(false)
   const [randomInterval, setRandomInterval] = useState(null)
-  console.log("props", props)
   useEffect(() => {
-    fetch("/.netlify/functions/getTheme").then(response => {
-      return response.json()
-    })
     netlifyIdentity.init()
   })
 
@@ -53,11 +52,10 @@ export const Main = (props: MainProps) => {
     }
     return isChoosing && clearInterval(randomInterval)
   }
-  console.log(process.env.FAUNADB_CINEVIM_SECRET)
   return (
     <Layout {...props}>
       <Header>Bienvenue au Ciné-Club de la Rue de Tracy</Header>
-      <Content>
+      <Content additionnalStyle={styles.mainContainer}>
         <div style={styles.buttonContainer}>
           <DesignedButton
             label={isChoosing ? "Stop" : "Choisir le thème"}
