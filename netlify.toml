@@ -3,9 +3,5 @@
   Functions = "lambda"
   Publish = "public"
 
-[[redirects]]
-  from = "/"
-  to = "/app/home"
-
 [template.environment]
   FAUNADB_CINEDIM_SECRET = "Your FaunaDB Server Secret"
