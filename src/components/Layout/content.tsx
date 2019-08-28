@@ -5,12 +5,12 @@ const styles = {
   content: {
     display: "flex",
     flexDirection: "column" as FlexDirectionProperty,
-    alignItems: "center",
     justifyContent: "center",
+    overflow: "scroll",
     flex: 1,
   },
 }
 
-export const Content = ({ children }) => (
-  <div style={styles.content}>{children}</div>
+export const Content = ({ children, additionnalStyle }) => (
+  <div style={{ ...styles.content, ...additionnalStyle }}>{children}</div>
 )

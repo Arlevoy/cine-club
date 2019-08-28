@@ -7,11 +7,9 @@ export const Navbar = props => {
   const currentPath = props.path.replace("/", "")
   const [currentItem, setCurrentItem] = useState(currentPath)
 
-  console.log("currentPath", currentPath)
   const onClick = e => {
     props.navigate(`/app/${e.key}`)
   }
-  console.log("currentItem", currentItem)
 
   return (
     <Menu mode="horizontal" onClick={onClick} selectedKeys={[currentItem]}>

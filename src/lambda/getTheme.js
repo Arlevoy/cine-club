@@ -2,9 +2,8 @@ const faunadb = require("faunadb") /* Import faunaDB sdk */
 
 /* configure faunaDB Client with our secret */
 const q = faunadb.query
-console.log("process.env", process.env.FAUNADB_CINEVIM_SECRET)
 const client = new faunadb.Client({
-  secret: process.env.FAUNADB_CINEVIM_SECRET,
+  secret: process.env.FAUNADB_CINEDIM_SECRET,
 })
 
 console.log("client", client)
@@ -17,19 +16,30 @@ exports.handler = (event, context, callback) => {
   return client
     .query(q.Paginate(q.Match(q.Index("all_movies"))))
     .then(response => {
-      console.log("success", response)
-      /* Success! return the response with statusCode 200 */
-      return callback(null, {
-        statusCode: 200,
-        body: JSON.stringify(response),
+      const moviesRef = response.data
+      console.log("success", moviesRef)
+      console.log(`${moviesRef.length} todos found`)
+
+      const getAllMoviesQuery = moviesRef.map(ref => {
+        return q.Get(ref)
       })
+      return client
+        .query(getAllMoviesQuery)
+        .then(allMoviesResponse => {
+          console.log("allMoviesResponse", allMoviesResponse)
+          return callback(null, {
+            statusCode: 200,
+            body: JSON.stringify(allMoviesResponse),
+          })
+        })
+        .catch(error => {
+          console.log("error", error)
+          /* Error! return the error with statusCode 400 */
+          return callback(null, {
+            statusCode: 400,
+            body: "Hello Error",
+          })
+        })
     })
-    .catch(error => {
-      console.log("error", error)
-      /* Error! return the error with statusCode 400 */
-      return callback(null, {
-        statusCode: 400,
-        body: JSON.stringify(error),
-      })
-    })
+  /* Success! return the response with statusCode 200 */
 }
