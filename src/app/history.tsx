@@ -1,5 +1,12 @@
-import React, { useState, useEffect } from "react"
+import React, {
+  useState,
+  useEffect,
+  useRef,
+  useLayoutEffect,
+  useCallback,
+} from "react"
 import { Layout, Content } from "../components/AppLayout"
+import { RatingForm } from "./components/RatingForm"
 import { Card, Divider, Spin } from "antd"
 import { getUser } from "./services/auth"
 
@@ -27,6 +34,11 @@ const styles = {
     flexDirection: "column",
     maxHeight: "95vh",
     overflow: "scroll",
+  },
+  comments: {
+    textAlign: "center",
+    fontSize: 24,
+    paddingTop: 24,
   },
   historyCard: {
     margin: 24,
@@ -59,8 +71,23 @@ const formatMovies = (movies: FaunaDbData[]) =>
 export const History = (props: PropsType) => {
   const [history, setHistory] = useState<MovieHistory[]>([])
   const [isModalVisible, setIsModalVisible] = useState(false)
+  const [form, setForm] = useState(null)
 
-  useEffect(() => {
+  const measuredRef = useCallback(node => {
+    if (node !== null) {
+      setForm(node.getForm())
+    }
+  }, [])
+
+  const showModal = () => {
+    setIsModalVisible(true)
+  }
+
+  const handleCancel = () => {
+    setIsModalVisible(false)
+  }
+
+  const fetchHistory = () =>
     fetch("/.netlify/functions/getHistory")
       .then(response => {
         return response.json()
@@ -68,11 +95,32 @@ export const History = (props: PropsType) => {
       .then(result => {
         setHistory(formatMovies(result))
       })
-    // fetch("/.netlify/functions/postRating")
-    //   .then(response => {
-    //     return response.json()
-    //   })
-    //   .then(result => console.log(result))
+
+  const handleCreate = () => {
+    if (!getUser()) return null
+    const { email, user_metadata } = getUser()
+    const fullName = user_metadata["full_name"] || "Inconnu"
+    form.validateFields(async (err, values) => {
+      if (err) {
+        return
+      }
+      try {
+        const response = await fetch("/.netlify/functions/postRating", {
+          body: JSON.stringify({ ...values, email, fullName }),
+          method: "POST",
+        })
+        fetchHistory()
+      } catch (error) {
+        console.log("error", error)
+      }
+      console.log("Received values of form: ", values)
+      form.resetFields()
+      setIsModalVisible(false)
+    })
+  }
+
+  useEffect(() => {
+    fetchHistory()
   }, [history.length])
   return (
     <Layout {...props}>
@@ -80,7 +128,11 @@ export const History = (props: PropsType) => {
         {history ? (
           history.map((movie: MovieHistory) => {
             return (
-              <Card key={movie.title} style={styles.historyCard}>
+              <Card
+                onClick={showModal}
+                key={movie.title}
+                style={styles.historyCard}
+              >
                 <div style={styles.title}>{movie.title}</div>
                 <div>{movie.director}</div>
                 <div>{movie.releaseYear}</div>
@@ -88,25 +140,30 @@ export const History = (props: PropsType) => {
                 <div style={styles.watchingDate}>
                   Visonné le {movie.watchingDate}
                 </div>
-                <div>
-                  {movie.ratings &&
-                    Object.values(movie.ratings).map(rating => {
-                      return (
-                        <div>
-                          <Divider />
-                          <div style={styles.user}>{rating.user}</div>
-                          <div>Notes : {rating.rate}</div>
-                          <div>Commentaires : {rating.comments}</div>
-                        </div>
-                      )
-                    })}
-                </div>
+                <div style={styles.comments}>Commentaires</div>
+                {movie.ratings &&
+                  Object.values(movie.ratings).map(rating => {
+                    return (
+                      <div>
+                        <Divider />
+                        <div style={styles.user}>{rating.user}</div>
+                        <div>Notes : {rating.rate}</div>
+                        <div>Commentaires : {rating.comments}</div>
+                      </div>
+                    )
+                  })}
               </Card>
             )
           })
         ) : (
           <Spin style={styles.spin} size="large" />
         )}
+        <RatingForm
+          ref={measuredRef}
+          visible={isModalVisible}
+          onCancel={handleCancel}
+          onCreate={handleCreate}
+        />
       </Content>
     </Layout>
   )

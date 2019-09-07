@@ -53,6 +53,7 @@ export const Main = (props: MainProps) => {
     <Layout {...props}>
       <Header>Bienvenue au Ciné-Club de la Rue de Tracy</Header>
       <Content additionnalStyle={styles.mainContainer}>
+        {/* <img src="https://images.unsplash.com/photo-1478720568477-152d9b164e26?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80" /> */}
         <div style={styles.buttonContainer}>
           <DesignedButton
             label={isChoosing ? "Stop" : "Choisir le thème"}

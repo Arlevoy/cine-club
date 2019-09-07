@@ -1,15 +1,15 @@
 import { client, faunaDbQuery } from "../lambda"
 
 exports.handler = async event => {
-  // const data = JSON.parse(event.body)
-  // console.log("Function `create rating` invoked", data)
+  console.log("data", JSON.parse(event.body))
+  const { rate, comments, email, fullName } = JSON.parse(event.body)
   const rating = {
     data: {
       ratings: {
-        "servera.edgar@gmail.com": {
-          user: "Edgar Servera",
-          rate: "8,7",
-          comments: "Meilleur film du monde",
+        [email]: {
+          user: fullName,
+          rate,
+          comments,
         },
       },
     },

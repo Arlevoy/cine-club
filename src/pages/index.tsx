@@ -7,7 +7,13 @@ import { Content } from "../components/AppLayout/content"
 import { DesignedButton } from "../components/button"
 import { Helmet } from "react-helmet"
 
-// remember everything in /app/* is dynamic now!
+const styles = {
+  button: {
+    display: "flex",
+    justifyContent: "center",
+  },
+}
+
 const IndexPage = () => (
   <Fragment>
     <Helmet
@@ -23,7 +29,7 @@ const IndexPage = () => (
     />
     <Layout hasNavbar={false}>
       <Content>
-        <Link to="/app/home">
+        <Link style={styles.button} to="/app/home">
           <DesignedButton label="Entrez" />
         </Link>
       </Content>
