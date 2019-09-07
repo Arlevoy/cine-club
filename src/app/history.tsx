@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react"
 import { Layout, Content } from "../components/AppLayout"
 import { Card, Divider, Spin } from "antd"
+import { getUser } from "./services/auth"
 
 interface PropsType {}
 
@@ -10,11 +11,14 @@ interface MovieHistory {
   theme: string[]
   releaseYear: string
   watchingDate: string | Date
-  ratings: {
-    user: string
-    rate: string
-    comments: string
-  }[]
+  ratings: Record<
+    string,
+    {
+      user: string
+      rate: string
+      comments: string
+    }
+  >
 }
 
 const styles = {
@@ -57,13 +61,19 @@ export const History = (props: PropsType) => {
   const [isModalVisible, setIsModalVisible] = useState(false)
 
   useEffect(() => {
-    fetch("/.netlify/functions/getTheme")
+    fetch("/.netlify/functions/getHistory")
       .then(response => {
         return response.json()
       })
-      .then(result => setHistory(formatMovies(result)))
+      .then(result => {
+        setHistory(formatMovies(result))
+      })
+    // fetch("/.netlify/functions/postRating")
+    //   .then(response => {
+    //     return response.json()
+    //   })
+    //   .then(result => console.log(result))
   }, [history.length])
-
   return (
     <Layout {...props}>
       <Content>
@@ -80,7 +90,7 @@ export const History = (props: PropsType) => {
                 </div>
                 <div>
                   {movie.ratings &&
-                    movie.ratings.map(rating => {
+                    Object.values(movie.ratings).map(rating => {
                       return (
                         <div>
                           <Divider />

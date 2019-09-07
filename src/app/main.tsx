@@ -40,9 +40,6 @@ export const Main = (props: MainProps) => {
   const [theme, setTheme] = useState("")
   const [isChoosing, setIsChoosing] = useState(false)
   const [randomInterval, setRandomInterval] = useState(null)
-  useEffect(() => {
-    netlifyIdentity.init()
-  })
 
   const onClick = () => {
     setIsChoosing(isChoosing => !isChoosing)

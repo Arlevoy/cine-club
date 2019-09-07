@@ -13,7 +13,7 @@ const styles = {
 }
 
 export const Login = () => {
-  const onClick = () => handleLogin(() => navigate("/app"))
+  const onClick = () => handleLogin(() => navigate("/"))
   return (
     <Layout hasNavbar={false}>
       <Header>

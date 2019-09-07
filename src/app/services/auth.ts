@@ -11,7 +11,7 @@ export const initAuth = () => {
 export const getUser = () =>
   isBrowser() && window.localStorage.getItem("netlifyUser")
     ? JSON.parse(window.localStorage.getItem("netlifyUser"))
-    : {}
+    : false
 
 const setUser = user =>
   window.localStorage.setItem("netlifyUser", JSON.stringify(user))
@@ -30,8 +30,7 @@ export const handleLogin = callback => {
 
 export const isLoggedIn = () => {
   if (!isBrowser()) return false
-  const user = netlifyIdentity.currentUser()
-  return true
+  const user = getUser()
   return !!user
 }
 
