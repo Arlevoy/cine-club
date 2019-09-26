@@ -8,7 +8,6 @@ const styles = {
     justifyContent: "center",
     overflow: "scroll",
     flex: 1,
-    height: "100vh",
   },
 }
 
