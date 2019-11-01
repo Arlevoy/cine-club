@@ -34,6 +34,7 @@ const styles = {
     flexDirection: "column",
     maxHeight: "95vh",
     overflow: "scroll",
+    backgroundColor: "black",
   },
   comments: {
     textAlign: "center",
@@ -103,7 +104,7 @@ export const History = (props: PropsType) => {
         return response.json()
       })
       .then(result => {
-        setHistory(formatMovies(result))
+        setHistory(formatMovies(result).reverse())
       })
       .finally(() => setIsLoading(false))
   }
