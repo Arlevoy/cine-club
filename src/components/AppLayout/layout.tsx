@@ -25,6 +25,7 @@ const styles = {
   },
   background: {
     backgroundColor: "black",
+    height: "100vh",
   },
 }
 export const Layout = ({ children, hasNavbar = true, ...props }) => {
