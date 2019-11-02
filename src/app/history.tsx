@@ -29,13 +29,6 @@ interface MovieHistory {
 }
 
 const styles = {
-  container: {
-    display: "flex",
-    flexDirection: "column",
-    maxHeight: "95vh",
-    overflow: "scroll",
-    backgroundColor: "black",
-  },
   comments: {
     textAlign: "center",
     fontSize: 24,
